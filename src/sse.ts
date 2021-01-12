@@ -42,7 +42,9 @@ function* lineGen(msg: SSEMessage) {
   if(id !== undefined) { yield ES.ID + id + ES.END_OF_LINE }
   if(retryMs !== undefined) { yield ES.RETRY + retryMs + ES.END_OF_LINE }
 
-  return ES.FINAL_END_OF_LINE
+  yield ES.FINAL_END_OF_LINE
+
+  return
 }
 
 export class ServerSentEvents {
