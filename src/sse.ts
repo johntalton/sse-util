@@ -1,5 +1,5 @@
 const MIMES = [ 'text/event-stream', 'application/x-dom-event-stream' ]
-export const [SSE_MIME] = MIMES
+export const [ SSE_MIME ] = MIMES
 export const SSE_LAST_EVENT_ID = 'Last-Event-ID'
 export const SSE_INACTIVE_STATUS_CODE = 204
 
@@ -11,10 +11,10 @@ const ENDING = {
   CRLF: '\r\n'
 }
 
-const COLON = ': ' // space after colon could be used to fingerprint implementations
+const COLON = ': ' // space(s) after colon fingerprint
 
 const ES = {
-  END_OF_LINE: ENDING.LF,  // fingerprint
+  END_OF_LINE: ENDING.LF, //  fingerprint
   FINAL_END_OF_LINE: ENDING.LF, // fingerprint
 
   COMMENT: COLON,
@@ -32,6 +32,19 @@ export type SSEMessage = {
   data?: Array<string>
 }
 
+// order of field names could be used to fingerprint
+// order of id (first/last) could influence client communication issues
+function* lineGen(msg: SSEMessage) {
+  const { comment, event, data, id, retryMs } = msg
+  if(comment !== undefined) { yield ES.COMMENT + comment + ES.END_OF_LINE }
+  if(event !== undefined) { yield ES.EVENT + event + ES.END_OF_LINE }
+  if(data !== undefined) { yield* data.map(d => ES.DATA + d + ES.END_OF_LINE) }
+  if(id !== undefined) { yield ES.ID + id + ES.END_OF_LINE }
+  if(retryMs !== undefined) { yield ES.RETRY + retryMs + ES.END_OF_LINE }
+
+  return ES.FINAL_END_OF_LINE
+}
+
 export class ServerSentEvents {
   static retryToEventStreamLine(retryMs: number): string {
     // return ServerSentEvents.messageToEventStreamLines({ retryMs })[0]
@@ -43,20 +56,7 @@ export class ServerSentEvents {
     return ES.COMMENT + '🦄' + ES.END_OF_LINE
   }
 
-  static messageToEventStreamLines(msg: SSEMessage): Array<string>
-  {
-    // order of field names could be used to fingerprint
-    // id after data enforces a check on partial payloads
-    function* lineGen() {
-      if(msg.comment != undefined) { yield ES.COMMENT + msg.comment + ES.END_OF_LINE }
-      if(msg.event != undefined) { yield ES.EVENT + msg.event + ES.END_OF_LINE }
-      if(msg.data != undefined) { yield* msg.data.map(d => ES.DATA + d + ES.END_OF_LINE) }
-      if(msg.id != undefined) { yield ES.ID + msg.id + ES.END_OF_LINE }
-      if(msg.retryMs != undefined) { yield ES.RETRY + msg.retryMs + ES.END_OF_LINE }
-
-      yield ES.FINAL_END_OF_LINE
-    }
-
-    return [ ...lineGen() ]
+  static messageToEventStreamLines(msg: SSEMessage): Array<string> {
+    return [ ...lineGen(msg) ]
   }
 }

@@ -25,6 +25,29 @@
     "coverage": "npm --silent run coverage:c8",
     "coverage:c8": "c8 --check-coverage --all --lines 75 --functions 5 --branches 85 npm --silent run test:mocha -- --no-parallel --reporter min"
   },
+  "eslintConfig": {
+    "extends": [
+      "@johntalton/eslint-config/ts"
+    ],
+    "plugins": [
+      "import",
+      "promise"
+    ],
+    "rules": {
+      "import/no-nodejs-modules": "off",
+      "spellcheck/spell-checker": [
+        "error",
+        {
+          "ignoreRequire": true,
+          "identifiers": false,
+          "minLength": 3,
+          "skipWords": [
+            "johntalton"
+          ]
+        }
+      ]
+    }
+  },
   "nodemonConfig": {
     "ignore": [
       "**/*.spec.ts",
@@ -55,61 +78,6 @@
       "ts-node/register"
     ]
   },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended",
-      "plugin:promise/recommended",
-      "plugin:security/recommended",
-      "plugin:jsdoc/recommended",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2021,
-      "sourceType": "module"
-    },
-    "env": {
-      "es2021": true,
-      "mocha": true,
-      "node": true
-    },
-    "plugins": [
-      "import",
-      "promise",
-      "immutable",
-      "security",
-      "no-loops",
-      "fp",
-      "no-use-extend-native",
-      "jsdoc",
-      "spellcheck",
-      "mocha",
-      "@typescript-eslint"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "settings": {
-      "import/resolver": {
-        "typescript": {}
-      },
-      "import/parsers": {
-        "@typescript-eslint/parser": [
-          ".ts"
-        ]
-      }
-    },
-    "rules": {
-      "spellcheck/spell-checker": [
-        "error",
-        {
-          "ignoreRequire": true,
-          "identifiers": false,
-          "minLength": 3,
-          "skipWords": [
-            "johntalton"
-          ]
-        }
-      ]
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/johntalton/sse-util.git"
@@ -121,6 +89,7 @@
   },
   "homepage": "https://github.com/johntalton/sse-util#readme",
   "devDependencies": {
+    "@johntalton/eslint-config": "github:johntalton/eslint-config",
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.6.4",
