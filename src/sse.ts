@@ -1,13 +1,15 @@
-const MIMES = [ 'text/event-stream', 'application/x-dom-event-stream' ]
+export const MIMES = [ 'text/event-stream', 'application/x-dom-event-stream' ]
+export const MINE_CHARSET = 'UTF-8'
 export const [ SSE_MIME ] = MIMES
 export const SSE_LAST_EVENT_ID = 'Last-Event-ID'
 export const SSE_INACTIVE_STATUS_CODE = 204
 
-export const SSE_BOM = '\xFE\xFF' // BYTE ORDER MARK
+export const SSE_UTF8_BOM = '\xEF\xBB\xBF' // codepoint U+FEFF BYTE ORDER MARK
+export const SSE_BOM = SSE_UTF8_BOM
 
 const ENDING = {
   LF: '\n',
-  CR: '\n',
+  CR: '\r',
   CRLF: '\r\n'
 }
 
