@@ -1,13 +1,13 @@
 {
   "name": "@johntalton/sse-util",
-  "version": "0.0.3",
-  "description": "",
+  "version": "0.0.4",
+  "description": "Set of Utilities and Defines for build HTTP for SSE ",
   "main": "./lib/sse.js",
   "exports": {
     "import": "./lib/sse.js",
     "require": "./lib/sse.js"
   },
-  "type": "commonjs",
+  "type": "module",
   "files": [
     "lib/**/*.js",
     "lib/**/*.d.ts",
@@ -29,11 +29,52 @@
     "extends": [
       "@johntalton/eslint-config/ts"
     ],
+    "env": {
+      "node": false
+    },
     "plugins": [
       "import",
       "promise"
     ],
     "rules": {
+      "no-tabs": "off",
+      "indent": ["error", "tab"],
+      "keyword-spacing": [
+        "error",
+        {
+          "overrides": {
+            "if": {
+              "after": true
+            },
+            "for": {
+              "after": true
+            },
+            "while": {
+              "after": true
+            },
+            "switch": {
+              "after": true
+            }
+          }
+        }
+      ],
+
+      "valid-jsdoc": "off",
+      "max-len": [
+          "warn",
+          {
+              "code": 120
+          }
+      ],
+      "fp/no-throw": "off",
+      "fp/no-nil": "off",
+      "fp/no-class": "off",
+      "fp/no-unused-expression": "off",
+      "immutable/no-mutation": "off",
+      "fp/no-mutation": "off",
+      "fp/no-this": "off",
+      "immutable/no-this": "off",
+
       "import/no-nodejs-modules": "off",
       "spellcheck/spell-checker": [
         "error",
@@ -42,7 +83,7 @@
           "identifiers": false,
           "minLength": 3,
           "skipWords": [
-            "johntalton"
+            "johntalton", "codepoint"
           ]
         }
       ]
@@ -91,30 +132,29 @@
   "devDependencies": {
     "@johntalton/eslint-config": "github:johntalton/eslint-config",
     "@types/chai": "^4.2.14",
-    "@types/mocha": "^8.2.0",
-    "@types/node": "^14.6.4",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.2.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
     "c8": "^7.3.0",
     "chai": "^4.2.0",
-    "eslint": "^7.8.1",
-    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint": "^8.41.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-fp": "^2.3.0",
-    "eslint-plugin-functional": "^3.0.1",
+    "eslint-plugin-functional": "^5.0.8",
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsdoc": "^31.0.3",
-    "eslint-plugin-mocha": "^8.0.0",
+    "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-no-use-extend-native": "^0.5.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-spellcheck": "0.0.17",
-    "mocha": "^8.2.1",
+    "eslint-plugin-spellcheck": "0.0.20",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.4",
     "source-map-support": "^0.5.19",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.0.2"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
   }
 }

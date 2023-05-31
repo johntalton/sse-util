@@ -1,7 +1,7 @@
-const { expect } = require('chai')
-const { describe, it } = require('mocha')
+import { expect } from 'chai'
+import { describe, it } from 'mocha'
 
-const { ServerSentEvents } = require('@johntalton/sse-util')
+import { ServerSentEvents } from '@johntalton/sse-util'
 
 describe('SSE', () => {
   describe('retryToEventStreamLine', () => {
