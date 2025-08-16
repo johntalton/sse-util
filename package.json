@@ -151,7 +151,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-spellcheck": "0.0.20",
-    "mocha": "^10.2.0",
+    "mocha": "^11.7.1",
     "nodemon": "^2.0.4",
     "source-map-support": "^0.5.19",
     "ts-node": "^10.9.1",
