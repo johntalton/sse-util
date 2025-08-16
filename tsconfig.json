@@ -2,7 +2,6 @@
   "compilerOptions": {
     "alwaysStrict": true,
     "incremental": true,
-    "watch": false,
     "target": "ESNext",
     "module": "ESNext",
     "lib": [
