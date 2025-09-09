@@ -37,6 +37,7 @@ export type SSEMessage = {
 
 export class ServerSentEvents {
 	static retryToEventStreamLine(retryMs: number): string {
+		if(retryMs === undefined) { throw new Error('missing retry ms type') }
 		// return ServerSentEvents.messageToEventStreamLines({ retryMs })[0]
 		return ES.RETRY + retryMs + ES.END_OF_LINE
 	}
